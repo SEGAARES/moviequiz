@@ -1,0 +1,24 @@
+<project name="moviequiz" default="compile" basedir=".">
+  <!-- Визначення директорій -->
+  <property name="src.dir" value="src/main/java" />
+  <property name="build.dir" value="build" />
+
+  <!-- Ініціалізація: створення директорії для зібраних файлів -->
+  <target name="init">
+    <mkdir dir="${build.dir}" />
+  </target>
+
+  <!-- Компіляція Java-файлів -->
+  <target name="compile" depends="init">
+    <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" />
+  </target>
+
+  <!-- Запуск програми -->
+  <target name="run" depends="compile">
+    <java classname="com.example.moviequiz.Main" fork="true">
+      <classpath>
+        <pathelement path="${build.dir}" />
+      </classpath>
+    </java>
+  </target>
+</project>
