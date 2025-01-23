@@ -1,0 +1,13 @@
+{
+  "user": {
+    "name": "Alice",
+    "email": "alice@example.com",
+    "password": "password123"
+  },
+  "gameMode": {
+    "mode": "По кадру"
+  },
+  "difficulty": {
+    "level": "Середньо"
+  }
+}
