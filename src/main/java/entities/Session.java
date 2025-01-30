@@ -1,5 +1,7 @@
 package entities;
 
+import domain.entities.User;
+
 public class Session {
   private User user;
   private GameMode gameMode;

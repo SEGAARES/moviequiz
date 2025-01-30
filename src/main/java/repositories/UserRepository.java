@@ -1,38 +1,32 @@
 package repositories;
 
-import entities.User;
+import domain.entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class UserRepository {
   private final List<User> users = new ArrayList<>();
 
-  public void addUser(User user) {
+  public void add(User user) {
     users.add(user);
   }
 
-  public List<User> getAllUsers() {
+  public User getById(String email) {
+    return users.stream()
+        .filter(user -> user.getEmail().equals(email))
+        .findFirst()
+        .orElse(null);
+  }
+
+  public List<User> getAll() {
     return new ArrayList<>(users);
   }
 
-  public Optional<User> getByEmail(String email) {
-    return users.stream()
-        .filter(user -> user.getEmail().equals(email))
-        .findFirst();
-  }
-
-  public void updateUser(User user) {
-    getByEmail(user.getEmail()).ifPresent(existingUser -> {
-      existingUser.setName(user.getName());
-      existingUser.setPassword(user.getPassword());
-    });
-  }
-
-  public void deleteUser(String email) {
+  public void delete(String email) {
     users.removeIf(user -> user.getEmail().equals(email));
   }
 }
+
 
 

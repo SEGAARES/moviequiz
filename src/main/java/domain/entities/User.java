@@ -1,4 +1,4 @@
-package entities;
+package domain.entities;
 
 public class User {
   private String name;
@@ -6,7 +6,7 @@ public class User {
   private String password;
 
   public User(String name, String email, String password) {
-    if (name == null || name.trim().isEmpty()) {
+    if (name == null || name.isEmpty()) {
       throw new IllegalArgumentException("Name cannot be null or empty.");
     }
     if (email == null || !email.matches(".+@.+\\..+")) {
@@ -15,6 +15,7 @@ public class User {
     if (password == null || password.length() < 8) {
       throw new IllegalArgumentException("Password must be at least 8 characters.");
     }
+
     this.name = name;
     this.email = email;
     this.password = password;
@@ -24,10 +25,6 @@ public class User {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
   public String getEmail() {
     return email;
   }
@@ -35,15 +32,5 @@ public class User {
   public String getPassword() {
     return password;
   }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  @Override
-  public String toString() {
-    return "User{name='" + name + "', email='" + email + "', password='" + password + "'}";
-  }
 }
-
 
