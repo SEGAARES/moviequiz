@@ -1,9 +1,11 @@
 package services;
+
 import domain.entities.User;
 import repositories.UserRepository;
 
-import java.util.List;
-
+/**
+ * Реалізує бізнес-логіку для роботи з користувачами.
+ */
 public class UserService {
   private final UserRepository userRepository;
 
@@ -11,19 +13,25 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
-  public List<User> getAllUsers() {
-    return userRepository.getAll();
+  public boolean register(String username, String email, String password, boolean isAdmin) {
+    if (userRepository.findByUsername(username) != null) {
+      return false; // Користувач вже існує
+    }
+
+    String hashedPassword = hashPassword(password);
+    userRepository.add(new User(username, email, hashedPassword, isAdmin));
+    return true;
   }
 
-  public User getUserByEmail(String email) {
-    return userRepository.getById(email);
+  public boolean login(String username, String password) {
+    User user = userRepository.findByUsername(username);
+    if (user != null && user.getPasswordHash().equals(hashPassword(password))) {
+      return true;
+    }
+    return false;
   }
 
-  public void deleteUser(String email) {
-    userRepository.delete(email);
+  private String hashPassword(String password) {
+    return Integer.toHexString(password.hashCode());
   }
 }
-
-
-
-

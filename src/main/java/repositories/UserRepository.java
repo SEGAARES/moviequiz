@@ -5,13 +5,25 @@ import domain.entities.User;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Відповідає за збереження та управління даними користувачів.
+ */
 public class UserRepository {
   private final List<User> users = new ArrayList<>();
 
-  public void add(User user) {
-    users.add(user);
+  /**
+   * Додає нового користувача до репозиторію.
+   * @param newUser новий користувач для додавання
+   */
+  public void add(User newUser) {
+    users.add(newUser);
   }
 
+  /**
+   * Знаходить користувача за email.
+   * @param email електронна пошта користувача
+   * @return об'єкт User, якщо знайдено, або null
+   */
   public User getById(String email) {
     return users.stream()
         .filter(user -> user.getEmail().equals(email))
@@ -19,14 +31,19 @@ public class UserRepository {
         .orElse(null);
   }
 
-  public List<User> getAll() {
-    return new ArrayList<>(users);
-  }
-
-  public void delete(String email) {
-    users.removeIf(user -> user.getEmail().equals(email));
+  /**
+   * Знаходить користувача за ім'ям.
+   * @param username ім'я користувача
+   * @return об'єкт User, якщо знайдено, або null
+   */
+  public User findByUsername(String username) {
+    return users.stream()
+        .filter(user -> user.getUsername().equals(username))
+        .findFirst()
+        .orElse(null);
   }
 }
+
 
 
 

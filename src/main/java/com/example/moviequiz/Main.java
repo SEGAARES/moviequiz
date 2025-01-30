@@ -2,30 +2,32 @@ package com.example.moviequiz;
 
 import domain.entities.User;
 import repositories.UserRepository;
-import services.AuthenticationService;
+import repositories.GameModeRepository;
+import repositories.DifficultyRepository;
+import services.UserService;
+import services.GameModeService;
+import services.DifficultyService;
+import presentation.ConsoleUI;
 
 public class Main {
   public static void main(String[] args) {
-    // Ініціалізація репозиторія та сервісів
     UserRepository userRepository = new UserRepository();
-    AuthenticationService authService = new AuthenticationService(userRepository);
+    GameModeRepository gameModeRepository = new GameModeRepository();
+    DifficultyRepository difficultyRepository = new DifficultyRepository();
 
-    try {
-      // Реєстрація користувачів
-      authService.registerUser("Alice", "alice@example.com", "password123");
-      authService.registerUser("Bob", "bob@example.com", "password456");
+    UserService userService = new UserService(userRepository);
+    GameModeService gameModeService = new GameModeService(gameModeRepository);
+    DifficultyService difficultyService = new DifficultyService(difficultyRepository);
 
-      // Логін користувача
-      User loggedInUser = authService.loginUser("alice@example.com", "password123");
-      System.out.println("Вхід успішний! Ласкаво просимо, " + loggedInUser.getName());
+    userRepository.add(new User("max", "max@student.com", Integer.toHexString("12334556".hashCode()), false));
 
-      // Логін з неправильним паролем
-      authService.loginUser("alice@example.com", "wrongpassword");
-    } catch (Exception e) {
-      System.out.println("Помилка: " + e.getMessage());
-    }
+    ConsoleUI consoleUI = new ConsoleUI(userService, gameModeService, difficultyService);
+    consoleUI.run();
   }
 }
+
+
+
 
 
 

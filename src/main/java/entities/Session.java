@@ -4,10 +4,10 @@ import domain.entities.User;
 
 public class Session {
   private User user;
-  private GameMode gameMode;
+  private Difficulty gameMode;
   private Difficulty difficulty;
 
-  public Session(User user, GameMode gameMode, Difficulty difficulty) {
+  public Session(User user, Difficulty gameMode, Difficulty difficulty) {
     if (user == null || gameMode == null || difficulty == null) {
       throw new IllegalArgumentException("Session properties cannot be null.");
     }
@@ -24,11 +24,11 @@ public class Session {
     this.user = user;
   }
 
-  public GameMode getGameMode() {
+  public Difficulty getGameMode() {
     return gameMode;
   }
 
-  public void setGameMode(GameMode gameMode) {
+  public void setGameMode(Difficulty gameMode) {
     this.gameMode = gameMode;
   }
 

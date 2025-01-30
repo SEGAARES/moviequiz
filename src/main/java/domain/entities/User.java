@@ -1,36 +1,34 @@
 package domain.entities;
 
+/**
+ * Представляє користувача системи.
+ */
 public class User {
-  private String name;
+  private String username;
   private String email;
-  private String password;
+  private String passwordHash;
+  private boolean isAdmin;
 
-  public User(String name, String email, String password) {
-    if (name == null || name.isEmpty()) {
-      throw new IllegalArgumentException("Name cannot be null or empty.");
-    }
-    if (email == null || !email.matches(".+@.+\\..+")) {
-      throw new IllegalArgumentException("Invalid email format.");
-    }
-    if (password == null || password.length() < 8) {
-      throw new IllegalArgumentException("Password must be at least 8 characters.");
-    }
-
-    this.name = name;
+  public User(String username, String email, String passwordHash, boolean isAdmin) {
+    this.username = username;
     this.email = email;
-    this.password = password;
+    this.passwordHash = passwordHash;
+    this.isAdmin = isAdmin;
   }
 
-  public String getName() {
-    return name;
+  public String getUsername() {
+    return username;
   }
 
   public String getEmail() {
     return email;
   }
 
-  public String getPassword() {
-    return password;
+  public String getPasswordHash() {
+    return passwordHash;
+  }
+
+  public boolean isAdmin() {
+    return isAdmin;
   }
 }
-
